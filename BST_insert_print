@@ -1,0 +1,73 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct tree_struct {
+    int value;
+    struct tree_struct* left;
+    struct tree_struct* right;
+} Tree;
+
+Tree* addToTree(int value, Tree* tree)
+{
+    if (tree == NULL) {
+        tree = malloc(sizeof(Tree));
+        tree->value = value;
+        tree->left = NULL;
+        tree->right = NULL;
+    } else {
+        if (value < tree->value) {
+            tree->left = addToTree(value, tree->left);
+        } else {
+            tree->right = addToTree(value, tree->right);
+        }
+    }
+    return tree;
+}
+
+void print(Tree *tree) {
+    if(tree==NULL) return;
+
+    print(tree->left);
+    printf("\n%d",tree->value);
+    print(tree->right);    
+
+}
+
+int check(Tree *root1, Tree *root2) {
+	if (root1==NULL && root2==NULL) {return 1;}
+        if(root1==NULL && root2!=NULL) {printf("not same");return 0;}
+        if(root1!=NULL && root2==NULL) {printf("not same");return 0;}
+        if(root1->value != root2->value) {printf("not same");return 0;}
+	if (!check(root1->left,root2->left)) return 0;
+        if (!check(root1->right,root2->right))return 0;
+        return 1;
+}
+
+int main(int argc, char** argv)
+{
+    Tree* tree = NULL,*tree2 = NULL,*t = NULL,*t2 = NULL;
+    int in[16]={15,17,4,19,20,01,11,100,99,67,65,54,23,21};
+    int in1[16]={15,17,4,19,20,01,11,100,99,67,65,54,23,21};
+    int i=0;
+    printf("\n Size of array : %d",sizeof(in));
+    while (i != 14) {
+        tree = addToTree(in[i], tree);
+        i++;
+    }
+    i=0;
+    while (i != 14) {
+        tree2 = addToTree(in1[i], tree2);
+        i++;
+    }
+    t = tree;
+    t2 = tree2;
+
+    print(tree);
+    print(tree2);
+    
+    
+    if (check(t,t2)) 
+        printf("\nSame");
+
+    return 0;
+}
