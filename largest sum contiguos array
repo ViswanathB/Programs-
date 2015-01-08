@@ -1,0 +1,30 @@
+#include <stdio.h>
+
+int largestsub(int arr[], int arr_size) {
+    int current_sum=-1000000, large_sum=-10000000;
+    int i;
+    
+    for(i=0;i<arr_size;i++) {
+           printf("\n currentsum:%d, element:%d, large_sum:%d", current_sum, arr[i], large_sum);
+            current_sum = current_sum+arr[i];
+        if (arr[i] > current_sum)
+            current_sum = arr[i];
+        
+        if (large_sum < current_sum) 
+            large_sum = current_sum;
+        printf("\n currentsum:%d, element:%d, large_sum:%d\n\n\n\n", current_sum, arr[i], large_sum);
+            
+    }
+    return large_sum;
+}
+
+
+int main()
+{
+    printf("Hello, World!\n");
+    int arr[] = {-2, -3, 4, -1, -2, 1, 5, -3};
+    printf("\nArray size is %d",sizeof(arr)/sizeof(arr[0]));
+    printf("\n Largest sum is :%d\n",largestsub(arr, sizeof(arr)/sizeof(arr[0])));    
+    
+    return 0;
+}
