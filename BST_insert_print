@@ -32,7 +32,16 @@ void print(Tree *tree) {
     print(tree->right);    
 
 }
-
+long int sumofalllefts(Tree *root,long int sum) {
+        if(root->left !=NULL) {
+                //printf("\t%d",root->left->value);
+                sum = root->left->value + sumofalllefts(root->left,sum);
+        }
+        if(root->right !=NULL) {
+                sum = sum + sumofalllefts(root->right,sum);
+        }
+        return sum;
+}
 int check(Tree *root1, Tree *root2) {
 	if (root1==NULL && root2==NULL) {return 1;}
         if(root1==NULL && root2!=NULL) {printf("not same");return 0;}
