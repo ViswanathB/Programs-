@@ -32,6 +32,9 @@ void print(Tree *tree) {
     print(tree->right);    
 
 }
+
+void bfs();
+
 long int sumofalllefts(Tree *root,long int sum) {
         if(root->left !=NULL) {
                 //printf("\t%d",root->left->value);
@@ -79,4 +82,30 @@ int main(int argc, char** argv)
         printf("\nSame");
 
     return 0;
+}
+
+Tree *queue[500];
+int queue_next;
+int current_position;
+
+void bfs() {
+
+    int this_level = queue_next-current_position;
+    int i;
+    printf("\n");
+
+    for(i=0;i<this_level;i++) { 
+        printf("%d\t",queue[i+current_position]->value);
+        if(queue[i+current_position]->left !=NULL) {
+            queue[queue_next] = queue[i+current_position]->left;
+            queue_next++;
+        }
+        if(queue[i+current_position]->right !=NULL) {
+            queue[queue_next] = queue[i+current_position]->right;
+            queue_next++;
+        }    
+    }
+    current_position += this_level;
+    
+    if(queue_next-current_position !=0 ) bfs();
 }
